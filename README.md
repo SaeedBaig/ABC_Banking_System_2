@@ -1,7 +1,7 @@
 # ABC_Banking_System
 Cross-platform GUI bank admin app with persistent DB
 
-This app was made in 4 days as a group project
+This app was made in 4 days as a group project.
 
 ## Installation
 Just download & extract the [latest release](https://github.com/SaeedBaig/ABC_Banking_System/releases) and double-click the JAR file inside (you'll need [Java installed on your system to run it](https://www.wikihow.com/Run-a-.Jar-Java-File)).
