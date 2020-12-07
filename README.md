@@ -6,6 +6,8 @@ This app was made in 4 days as a group project.
 ## Installation
 Just download & extract the [latest release](https://github.com/SaeedBaig/ABC_Banking_System/releases) and double-click the JAR file inside (you'll need [Java installed on your system to run it](https://www.wikihow.com/Run-a-.Jar-Java-File)).
 
+[![Demonstration vid](https://i.imgur.com/JtfIBfs.png)](https://youtu.be/R0WSXa-Awlk)
+
 ## Screenshots
 <p align="center">
   <img src="screenshots/login_screen.png" alt="Login Screen"/>
