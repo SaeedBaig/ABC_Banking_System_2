@@ -42,4 +42,4 @@ TODO - Kevin (Chia-Yu) Lin
 
 TODO - Allan Rubin
 
-TODO - Venkata Naga Goutham Alapati
+Entity classes (Customer,Account,Transaction) - Venkata Naga Goutham Alapati
