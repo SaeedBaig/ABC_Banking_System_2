@@ -36,7 +36,7 @@ Just download & extract the [latest release](https://github.com/SaeedBaig/ABC_Ba
 ## Credits
 UI - Saeed Baig
 
-TODO - Danyyil Kucherenko
+DB connection (util, dao) - Danyyil Kucherenko
 
 TODO - Kevin (Chia-Yu) Lin
 
