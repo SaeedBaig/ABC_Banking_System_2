@@ -8,6 +8,8 @@ To package the app as a JAR file (e.g. for release), export it as a runnable JAR
 in Project Explorer, select "Export", and follow steps to export it as a runnable JAR with required libraries extracted into it).
 ![Export as runnable JAR](https://i.imgur.com/CKcM3SH.png)
 
+(On Linux, you may have to set the JAR file's permissions to executable to make it launchable on double-click.)
+
 **NOTE:** The JAR file has to be in the same folder as the DB to work properly (it's not possible to pack an editable DB inside the JAR itself),
 as dictated by the DB path specified by the DB Connection code (in `src/com/util/DBUtil.java`).
 Keep that in mind when deciding the export destination and how to package the app for release.
