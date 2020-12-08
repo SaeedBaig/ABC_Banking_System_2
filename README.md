@@ -33,6 +33,9 @@ Just download & extract the [latest release](https://github.com/SaeedBaig/ABC_Ba
   <i>Transactions, where you can view all transactions of a selected account</i>
 </p>
 
+## Build instructions
+See the [README in `BankProject`](/BankProject/README.md) if you want to build & develop the app yourself.
+
 ## Credits
 UI - Saeed Baig
 
