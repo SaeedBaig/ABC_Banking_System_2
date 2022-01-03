@@ -1,4 +1,7 @@
-# ABC_Banking_System
+# ABC_Banking_System_2
+
+**TLDR: This is a (kind of) fork of an old [group project](https://github.com/SaeedBaig/ABC_Banking_System). Created to refine app and practice git, Java, CI/CD; WIP, some README instructions/links might be outdated.**
+
 Cross-platform GUI bank admin app with persistent DB
 
 This app was made in 4 days as a group project.
