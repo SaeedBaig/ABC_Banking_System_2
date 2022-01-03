@@ -1,5 +1,12 @@
 # How to build & run the app
-Import the `BankProject` folder into Eclipse IDE as a new project. Then open the file where the UI is instantiated (in `src/com/ui/AppWindow.java`), 
+To run from the command-line, run `java`, passing the paths to the `bin` and the SQLite JDBC driver to classpath. E.g. of running from `BankProject` folder:
+```sh
+java -classpath bin:src/sqlite-jdbc-3.32.3.2.jar com.ui.AppWindow
+```
+
+Alternatively, to use an IDE like Eclipse:
+
+Import the `BankProject` folder into Eclipse IDE as a new project. Then open the file where the UI is instantiated (in `src/com/ui/AppWindow.java`),
 and run it by clicking the green 'Run' button in Eclipse.
 ![Running app](https://i.imgur.com/hqWl5mX.png)
 
