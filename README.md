@@ -1,6 +1,14 @@
 # ABC_Banking_System_2
 
-**TLDR: This is a (kind of) fork of an old [group project](https://github.com/SaeedBaig/ABC_Banking_System). Created to refine app and practice git, Java, CI/CD; WIP, some README instructions/links might be outdated.**
+**TLDR: This is a (kind of) fork of an old [group project](https://github.com/SaeedBaig/ABC_Banking_System). Created to refine app and practice git, Java, CI/CD; WIP, some README instructions/links might be outdated. TODO:**
+- [ ] Add shell command to build app
+- [ ] Clean up repo by adding unecessary build artifacts to gitignore
+- [X] Add shell command to run app
+- [ ] Make customer search case-insensitive
+- [ ] Separate business logic from UI (too much business logic in AppWindow.java; move to appropriate other classes)
+- [ ] Make CI/CD pipeline to build on commit (confirm app compiles for every push/code-change)
+
+---
 
 Cross-platform GUI bank admin app with persistent DB
 
