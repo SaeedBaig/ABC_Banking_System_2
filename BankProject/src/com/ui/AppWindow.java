@@ -83,12 +83,12 @@ public class AppWindow {
 	private JTextField amountField;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JTable transactionsTable;
-	
+
 	/* Global variables to aid the UI */
 	private long idOfCustomerOfInterest;		// ugly hack to keep track of which customer we're working with
 	private long idOfAccountOfInterest;
 
-	
+
 	/**
 	 * Launch the application.
 	 */
@@ -105,7 +105,7 @@ public class AppWindow {
 		});
 	}
 
-	
+
 	/**
 	 * Create the application.
 	 */
@@ -113,66 +113,66 @@ public class AppWindow {
 		initialize();
 	}
 
-	
+
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
 		idOfCustomerOfInterest = 0;
 		idOfAccountOfInterest = 0;
-		
+
 		// The window
 		frmAbcBankSystem = new JFrame();
 		frmAbcBankSystem.setTitle("ABC Bank System");
 		frmAbcBankSystem.setBounds(100, 100, 564, 324);
 		frmAbcBankSystem.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmAbcBankSystem.getContentPane().setLayout(new CardLayout(0, 0));
-		
+
 		// Different screens shown in the window
 		final JPanel LoginScreen = new JPanel();
 		final JPanel CustomersScreen = new JPanel();
 		final JPanel CustomerDetailsUpdateScreen = new JPanel();
 		final JPanel AccountsScreen = new JPanel();
 		final JPanel TransactionsScreen = new JPanel();
-		
+
 		frmAbcBankSystem.getContentPane().add(LoginScreen, "name_19669407821600");
 		LoginScreen.setLayout(null);
-		
+
 		JLabel loginScreenTitle = new JLabel("Login");
 		loginScreenTitle.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		loginScreenTitle.setBounds(234, 23, 63, 28);
 		LoginScreen.add(loginScreenTitle);
-		
+
 		JLabel usernameLabel = new JLabel("Username:");
 		usernameLabel.setBounds(162, 62, 83, 28);
 		LoginScreen.add(usernameLabel);
-		
+
 		usernameField = new JTextField();
 		usernameLabel.setLabelFor(usernameField);
 		usernameField.setBounds(303, 62, 128, 28);
 		LoginScreen.add(usernameField);
 		usernameField.setColumns(10);
-		
+
 		JLabel passwordLabel = new JLabel("Password:");
 		passwordLabel.setBounds(162, 134, 83, 28);
 		LoginScreen.add(passwordLabel);
-		
+
 		passwordField = new JPasswordField();
 		passwordLabel.setLabelFor(passwordField);
 		passwordField.setBounds(303, 134, 128, 28);
 		LoginScreen.add(passwordField);
-		
+
 		JButton loginButton = new JButton("Enter");
 		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				final String enteredUsername = usernameField.getText();
 				final String enteredPassword = passwordField.getText();
-				
+
 				// Correct username & password hard-coded
 				// Maybe in future store & retrieve them from DB
 				final String correctUsername = "CLK_1005";
 				final String correctPassword = "test@123";
-				
+
 				// If login details correct
 				if (enteredUsername.equals(correctUsername) && enteredPassword.equals(correctPassword)) {
 					switchTo(CustomersScreen);
@@ -185,19 +185,19 @@ public class AppWindow {
 		});
 		loginButton.setBounds(215, 203, 89, 23);
 		LoginScreen.add(loginButton);
-		
+
 		frmAbcBankSystem.getContentPane().add(CustomersScreen, "name_19742416026700");
 		CustomersScreen.setLayout(null);
-		
+
 		JLabel homeScreenTitle = new JLabel("Customers");
 		homeScreenTitle.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		homeScreenTitle.setBounds(247, 0, 136, 27);
 		CustomersScreen.add(homeScreenTitle);
-		
+
 		JScrollPane customersScrollPane = new JScrollPane();
 		customersScrollPane.setBounds(10, 55, 528, 106);
 		CustomersScreen.add(customersScrollPane);
-		
+
 		customersTable = new JTable();
 		customersTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		customersTable.setModel(new DefaultTableModel(
@@ -220,34 +220,34 @@ public class AppWindow {
 				return columnEditables[column];
 			}
 		});
-		
+
 		customersScrollPane.setViewportView(customersTable);
-		
+
 		JComboBox<Gender> updateGenderField = new JComboBox<Gender>();
 		updateGenderField.setModel(new DefaultComboBoxModel<Gender>(Gender.values()));
 		updateGenderField.setBounds(284, 186, 76, 20);
 		CustomerDetailsUpdateScreen.add(updateGenderField);
-		
+
 		JButton editCustomerButton = new JButton("Edit");
 		editCustomerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				switchTo(CustomerDetailsUpdateScreen);
-				
-				idOfCustomerOfInterest = (long) valOfSelectedRowForColumn("ID", customersTable); 
-				
+
+				idOfCustomerOfInterest = (long) valOfSelectedRowForColumn("ID", customersTable);
+
 				// Prefill values in fields
 				final String currentName = (String) valOfSelectedRowForColumn("Name", customersTable);
 				updateNameField.setText(currentName);
-				
+
 				final String currentEmail = (String) valOfSelectedRowForColumn("Email", customersTable);
 				updateEmailField.setText(currentEmail);
-				
+
 				final String currentAddress = (String) valOfSelectedRowForColumn("Address", customersTable);
 				updateAddressField.setText(currentAddress);
-				
+
 				final String currentPhone = (String) valOfSelectedRowForColumn("Phone", customersTable);
 				updatePhoneField.setText(currentPhone);
-				
+
 				final String currentGender = (String) valOfSelectedRowForColumn("Gender", customersTable);
 				switch (currentGender) {
 				case "Male":
@@ -264,23 +264,23 @@ public class AppWindow {
 		editCustomerButton.setEnabled(false);
 		editCustomerButton.setBounds(74, 227, 78, 23);
 		CustomersScreen.add(editCustomerButton);
-		
+
 		JButton deleteCustomerButton = new JButton("Delete");
 		deleteCustomerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// Maybe change so that 'No' is the default choice?
 				final int answer = JOptionPane.showConfirmDialog(frmAbcBankSystem.getContentPane(), "Are you sure you want to delete this customer?", "Warning", JOptionPane.YES_NO_OPTION);
-				
+
 				if (answer == JOptionPane.YES_OPTION) {
 					final long custID = (long) valOfSelectedRowForColumn("ID", customersTable);
-					
+
 					// Delete customer from DB
 					final AccountService as = new AccountService();
 					// Can only delete if they have no corresponding accounts
 					if (as.getAllAccountsByCustomerID(custID).isEmpty()) {
 						final CustomerService cs = new CustomerService();
 						cs.delete((long)valOfSelectedRowForColumn("ID", customersTable));
-						
+
 						// Update UI
 						((DefaultTableModel)customersTable.getModel()).removeRow(customersTable.getSelectedRow());
 						switchTo(CustomersScreen);
@@ -295,7 +295,7 @@ public class AppWindow {
 		deleteCustomerButton.setEnabled(false);
 		deleteCustomerButton.setBounds(231, 227, 78, 23);
 		CustomersScreen.add(deleteCustomerButton);
-		
+
 		searchField = new JTextField();
 		searchField.addKeyListener(new KeyAdapter() {
 			@Override
@@ -307,43 +307,43 @@ public class AppWindow {
 				TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(dm);
 				customersTable.setRowSorter(tr);
 				final String searchQuery = searchField.getText();
-				tr.setRowFilter(RowFilter.regexFilter(searchQuery));
+				tr.setRowFilter(RowFilter.regexFilter("(?i)" + searchQuery)); // (?i) for case-insensitive
 			}
 		});
 		searchField.setBounds(268, 27, 94, 20);
 		CustomersScreen.add(searchField);
 		searchField.setColumns(10);
-		
+
 		JLabel searchLabel = new JLabel("Search:");
 		searchLabel.setLabelFor(searchField);
 		searchLabel.setBounds(212, 30, 46, 14);
 		CustomersScreen.add(searchLabel);
-		
+
 		nameField = new JTextField();
 		nameField.setBounds(96, 172, 94, 20);
 		CustomersScreen.add(nameField);
 		nameField.setColumns(10);
-		
+
 		emailField = new JTextField();
 		emailField.setBounds(184, 172, 94, 20);
 		CustomersScreen.add(emailField);
 		emailField.setColumns(10);
-		
+
 		addressField = new JTextField();
 		addressField.setBounds(276, 172, 86, 20);
 		CustomersScreen.add(addressField);
 		addressField.setColumns(10);
-		
+
 		phoneField = new JTextField();
 		phoneField.setBounds(361, 172, 86, 20);
 		CustomersScreen.add(phoneField);
 		phoneField.setColumns(10);
-		
+
 		JComboBox<Gender> genderPicker = new JComboBox<Gender>();
 		genderPicker.setModel(new DefaultComboBoxModel<Gender>(Gender.values()));
 		genderPicker.setBounds(448, 172, 90, 20);
 		CustomersScreen.add(genderPicker);
-		
+
 		JButton registerNewCustomerButton = new JButton("Add");
 		registerNewCustomerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -352,7 +352,7 @@ public class AppWindow {
 				final String address = addressField.getText();
 				final String phone = phoneField.getText();
 				final Gender gender = (Gender) genderPicker.getSelectedItem();
-				
+
 				if (name.isEmpty() || email.isEmpty() || address.isEmpty() || phone.isEmpty()) {
 					alert("Must fill in all fields to register new customer");
 					return;
@@ -361,7 +361,7 @@ public class AppWindow {
 					// Add this new customer to the DB
 					CustomerService cs = new CustomerService();
 					idOfCustomerOfInterest = cs.createNewCustomer(new Customer(name, email, address, phone, gender));
-					
+
 					// Update UI
 					final DefaultTableModel customerModel = (DefaultTableModel) customersTable.getModel();
 					customerModel.addRow(new Object[]{idOfCustomerOfInterest, name, email, address, phone, gender.toString()});
@@ -371,65 +371,65 @@ public class AppWindow {
 		});
 		registerNewCustomerButton.setBounds(10, 171, 86, 23);
 		CustomersScreen.add(registerNewCustomerButton);
-		
+
 		frmAbcBankSystem.getContentPane().add(CustomerDetailsUpdateScreen, "name_2160911379100");
 		CustomerDetailsUpdateScreen.setLayout(null);
-		
+
 		JLabel lblEnterNewDetails = new JLabel("Edit Details");
 		lblEnterNewDetails.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		lblEnterNewDetails.setBounds(239, 11, 161, 21);
 		CustomerDetailsUpdateScreen.add(lblEnterNewDetails);
-		
+
 		JLabel lblName = new JLabel("Name:");
 		lblName.setBounds(168, 46, 46, 14);
 		CustomerDetailsUpdateScreen.add(lblName);
-		
+
 		updateNameField = new JTextField();
 		updateNameField.setBounds(284, 43, 151, 20);
 		CustomerDetailsUpdateScreen.add(updateNameField);
 		updateNameField.setColumns(10);
-		
+
 		JLabel lblEmail = new JLabel("Email:");
 		lblEmail.setBounds(168, 80, 46, 14);
 		CustomerDetailsUpdateScreen.add(lblEmail);
-		
+
 		updateEmailField = new JTextField();
 		updateEmailField.setBounds(284, 77, 151, 20);
 		CustomerDetailsUpdateScreen.add(updateEmailField);
 		updateEmailField.setColumns(10);
-		
+
 		JLabel lblAddress = new JLabel("Address:");
 		lblAddress.setBounds(168, 115, 71, 14);
 		CustomerDetailsUpdateScreen.add(lblAddress);
-		
+
 		updateAddressField = new JTextField();
 		updateAddressField.setBounds(283, 112, 152, 20);
 		CustomerDetailsUpdateScreen.add(updateAddressField);
 		updateAddressField.setColumns(10);
-		
+
 		JLabel lblPhone = new JLabel("Phone:");
 		lblPhone.setBounds(168, 151, 46, 14);
 		CustomerDetailsUpdateScreen.add(lblPhone);
-		
+
 		updatePhoneField = new JTextField();
 		updatePhoneField.setBounds(284, 148, 151, 20);
 		CustomerDetailsUpdateScreen.add(updatePhoneField);
 		updatePhoneField.setColumns(10);
-		
+
 		JLabel lblGender = new JLabel("Gender:");
 		lblGender.setBounds(168, 189, 46, 14);
 		CustomerDetailsUpdateScreen.add(lblGender);
-		
+
 		JButton submitNewCustomerDetails = new JButton("Update");
 		submitNewCustomerDetails.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				final String newName = updateNameField.getText();
 				final String newEmail = updateEmailField.getText();
 				final String newAddress = updateAddressField.getText();
 				final String newPhone = updatePhoneField.getText();
 				final Gender newGender = (Gender) updateGenderField.getSelectedItem();
-				
+
 				// Update employee details in DB with these new values
 				final CustomerService cs = new CustomerService();
 				cs.updateName(idOfCustomerOfInterest, newName);
@@ -437,7 +437,7 @@ public class AppWindow {
 				cs.updateAddress(idOfCustomerOfInterest, newAddress);
 				cs.updatePhone(idOfCustomerOfInterest, newPhone);
 				cs.updateGender(idOfCustomerOfInterest, newGender);
-				
+
 				// Update UI
 				switchTo(CustomersScreen);
 				populateCustomersTable();
@@ -445,7 +445,7 @@ public class AppWindow {
 		});
 		submitNewCustomerDetails.setBounds(346, 227, 89, 23);
 		CustomerDetailsUpdateScreen.add(submitNewCustomerDetails);
-		
+
 		JButton cancelButton = new JButton("Cancel");
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -454,24 +454,24 @@ public class AppWindow {
 		});
 		cancelButton.setBounds(162, 227, 89, 23);
 		CustomerDetailsUpdateScreen.add(cancelButton);
-		
+
 		frmAbcBankSystem.getContentPane().add(AccountsScreen, "name_2041874970900");
 		AccountsScreen.setLayout(null);
-		
+
 		JLabel accountsScreenTitle = new JLabel("Accounts");
 		accountsScreenTitle.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		accountsScreenTitle.setBounds(177, 10, 186, 20);
 		AccountsScreen.add(accountsScreenTitle);
-		
+
 		JButton viewAccountsButton = new JButton("View Accounts");
 		viewAccountsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				// Personalize title of Accounts page 
+
+				// Personalize title of Accounts page
 				final String customerName = (String) valOfSelectedRowForColumn("Name", customersTable);
 				switchTo(AccountsScreen);
 				accountsScreenTitle.setText("Accounts of " + customerName);
-				
+
 				idOfCustomerOfInterest = (long) valOfSelectedRowForColumn("ID", customersTable);
 				populateAccountsTable();
 			}
@@ -479,11 +479,11 @@ public class AppWindow {
 		viewAccountsButton.setEnabled(false);
 		viewAccountsButton.setBounds(390, 227, 148, 23);
 		CustomersScreen.add(viewAccountsButton);
-		
+
 		JScrollPane accountsScrollPane = new JScrollPane();
 		accountsScrollPane.setBounds(10, 55, 528, 106);
 		AccountsScreen.add(accountsScrollPane);
-		
+
 		accountsTable = new JTable();
 		accountsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		accountsTable.setModel(new DefaultTableModel(
@@ -506,9 +506,9 @@ public class AppWindow {
 				return columnEditables[column];
 			}
 		});
-		
+
 		accountsScrollPane.setViewportView(accountsTable);
-		
+
 		JButton backToCustomersButton = new JButton("Back");
 		backToCustomersButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -518,11 +518,11 @@ public class AppWindow {
 		});
 		backToCustomersButton.setBounds(10, 10, 89, 23);
 		AccountsScreen.add(backToCustomersButton);
-		
+
 		JButton openNewAccountButton = new JButton("Open New Account");
 		openNewAccountButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				// Add new account to DB
 				final String accountTypeLabel = buttonGroup.getSelection().getActionCommand();
 				AccountType typ = AccountType.CashCredit;
@@ -536,7 +536,7 @@ public class AppWindow {
 				}
 				final AccountService as = new AccountService();
 				final long idOfNewCust = as.addAccount(new Account(0.0, idOfCustomerOfInterest, 0.0, typ));
-				
+
 				// Update UI
 				final DefaultTableModel accountsModel = (DefaultTableModel) accountsTable.getModel();
 				accountsModel.addRow(new Object[]{idOfNewCust, "0.00", accountTypeLabel});
@@ -546,7 +546,7 @@ public class AppWindow {
 		openNewAccountButton.setEnabled(false);
 		openNewAccountButton.setBounds(402, 217, 136, 57);
 		AccountsScreen.add(openNewAccountButton);
-		
+
 		JRadioButton cashCreditAccountOption = new JRadioButton("Cash Credit");
 		cashCreditAccountOption.setActionCommand("Cash Credit");
 		cashCreditAccountOption.addActionListener(new ActionListener() {
@@ -557,7 +557,7 @@ public class AppWindow {
 		buttonGroup.add(cashCreditAccountOption);
 		cashCreditAccountOption.setBounds(429, 192, 109, 23);
 		AccountsScreen.add(cashCreditAccountOption);
-		
+
 		JRadioButton regularCurrentAccountOption = new JRadioButton("Regular Current");
 		regularCurrentAccountOption.setActionCommand("Regular Current");
 		regularCurrentAccountOption.addActionListener(new ActionListener() {
@@ -568,27 +568,27 @@ public class AppWindow {
 		buttonGroup.add(regularCurrentAccountOption);
 		regularCurrentAccountOption.setBounds(429, 168, 109, 23);
 		AccountsScreen.add(regularCurrentAccountOption);
-		
+
 		JLabel label = new JLabel("$");
 		label.setBounds(32, 172, 22, 14);
 		AccountsScreen.add(label);
-		
+
 		JButton depositButton = new JButton("Deposit");
 		depositButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				final double depositAmount = Double.parseDouble(amountField.getText());
-				
+
 				if (depositAmount < 0) {
 					alert("Please enter an amount > 0");
 					return;
 				}
-				
+
 				// Deposit amount in DB
 				final TransactionService ts = new TransactionService();
 				ts.DepositAmount((long) valOfSelectedRowForColumn("ID", accountsTable), depositAmount);
-				
+
 				// Update UI
-				final double currentBalance = Double.parseDouble((String) valOfSelectedRowForColumn("Balance ($)", accountsTable)); 
+				final double currentBalance = Double.parseDouble((String) valOfSelectedRowForColumn("Balance ($)", accountsTable));
 				editSelectedRowColumn("Balance ($)", String.valueOf(currentBalance+depositAmount), accountsTable);
 				switchTo(AccountsScreen);
 			}
@@ -596,29 +596,29 @@ public class AppWindow {
 		depositButton.setEnabled(false);
 		depositButton.setBounds(46, 206, 89, 23);
 		AccountsScreen.add(depositButton);
-		
+
 		JButton withdrawButton = new JButton("Withdraw");
 		withdrawButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				final String enteredAmount = amountField.getText();
-				
+
 				final double withdrawAmount = Double.parseDouble(enteredAmount);
 				if (withdrawAmount < 0) {
 					alert("Please enter an amount > 0");
 					return;
 				}
-				
+
 				final double currentBalance = Double.parseDouble((String) valOfSelectedRowForColumn("Balance ($)", accountsTable));
-				
+
 				if (currentBalance == 0) {
 					alert("You can't withdraw from an empty account");
 					return;
 				}
-				
+
 				else if (withdrawAmount > currentBalance) {
 					// Withdrawing more than your balance is only allowed if the withdraw amount is < currentBalance + 10%
 					// And only for Cash Credit accounts
-					final String acntTyp = (String)valOfSelectedRowForColumn("Type", accountsTable);					
+					final String acntTyp = (String)valOfSelectedRowForColumn("Type", accountsTable);
 					if (acntTyp.equals("Cash Credit")) {
 						if (!(withdrawAmount <= currentBalance + (currentBalance*0.10))) {
 							alert("You can't make further withdrawals til you pay your overdraft");
@@ -630,11 +630,11 @@ public class AppWindow {
 						return;
 					}
 				}
-				
+
 				// Update balance in DB
 				TransactionService ts = new TransactionService();
 				ts.WithdrawAmount((long) valOfSelectedRowForColumn("ID", accountsTable), withdrawAmount);
-				
+
 				// Update UI
 				final double newBalance = currentBalance - withdrawAmount;
 				final int rowNum = accountsTable.getSelectedRow();
@@ -646,7 +646,7 @@ public class AppWindow {
 		withdrawButton.setEnabled(false);
 		withdrawButton.setBounds(46, 240, 89, 23);
 		AccountsScreen.add(withdrawButton);
-		
+
 		amountField = new JTextField();
 		amountField.setEnabled(false);
 		amountField.setBounds(49, 172, 86, 20);
@@ -662,27 +662,27 @@ public class AppWindow {
 			public void insertUpdate(DocumentEvent e) {
 				enableWithdrawAndDeposit();
 			}
-			
+
 			public void enableWithdrawAndDeposit() {
 				final boolean fieldHasVal = !amountField.getText().isEmpty();
 				withdrawButton.setEnabled(fieldHasVal);
 				depositButton.setEnabled(fieldHasVal);
 			}
 		});
-		
+
 		JButton closeAccountButton = new JButton("Close");
 		closeAccountButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Maybe change so that 'No' is the default choice?
 				final int answer = JOptionPane.showConfirmDialog(frmAbcBankSystem.getContentPane(), "Are you sure you want to close this account?", "Warning", JOptionPane.YES_NO_OPTION);
-				
+
 				if (answer == JOptionPane.YES_OPTION) {
-					
+
 					// COMEBACKTO
 					// Delete it from the DB
 					final AccountService as = new AccountService();
 					as.deleteAccount((long) valOfSelectedRowForColumn("ID", accountsTable));
-					
+
 					// Remove it from UI
 					((DefaultTableModel)accountsTable.getModel()).removeRow(accountsTable.getSelectedRow());
 				}
@@ -691,7 +691,7 @@ public class AppWindow {
 		closeAccountButton.setEnabled(false);
 		closeAccountButton.setBounds(229, 172, 89, 23);
 		AccountsScreen.add(closeAccountButton);
-		
+
 		JButton generateTransactionStatementButton = new JButton("Transaction Statements");
 		generateTransactionStatementButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -703,10 +703,10 @@ public class AppWindow {
 		generateTransactionStatementButton.setEnabled(false);
 		generateTransactionStatementButton.setBounds(157, 208, 235, 50);
 		AccountsScreen.add(generateTransactionStatementButton);
-		
+
 		frmAbcBankSystem.getContentPane().add(TransactionsScreen, "name_12264505769200");
 		TransactionsScreen.setLayout(null);
-		
+
 		JButton backToAccountsButton = new JButton("Back");
 		backToAccountsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -715,16 +715,16 @@ public class AppWindow {
 		});
 		backToAccountsButton.setBounds(31, 11, 89, 23);
 		TransactionsScreen.add(backToAccountsButton);
-		
+
 		JLabel lblTransactions = new JLabel("Transactions");
 		lblTransactions.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		lblTransactions.setBounds(216, 15, 140, 29);
 		TransactionsScreen.add(lblTransactions);
-		
+
 		JScrollPane transactionsScrollPane = new JScrollPane();
 		transactionsScrollPane.setBounds(31, 55, 485, 182);
 		TransactionsScreen.add(transactionsScrollPane);
-		
+
 		transactionsTable = new JTable();
 		transactionsTable.setModel(new DefaultTableModel(
 			new Object[][] {
@@ -747,7 +747,7 @@ public class AppWindow {
 			}
 		});
 		transactionsScrollPane.setViewportView(transactionsTable);
-		
+
 		// Enable edit, delete & view-accounts buttons if a row is selected in the customers table
 		// Disable them if no row selected
 		customersTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -760,7 +760,7 @@ public class AppWindow {
 				deleteCustomerButton.setEnabled(anyRowsSelected);
 			}
 		});
-		
+
 		// Enable deposit, withdraw, close-account, and generate-transaction-buttons if a row in
 		// the accounts table is selected
 		// Disable them if no now selected
@@ -775,16 +775,16 @@ public class AppWindow {
 			}
 		});
 	}
-	
-	
+
+
 	/* Helper functions */
 	/**
 	 * Populate table of customers.
 	 */
-	private void populateCustomersTable() { 
+	private void populateCustomersTable() {
 		final DefaultTableModel customerModel = (DefaultTableModel) customersTable.getModel();
 		customerModel.setRowCount(0);	// clear all rows
-		
+
 		// List all customers from DB
 		CustomerService cs = new CustomerService();
 		for (final Customer customer : cs.getAll()) {
@@ -797,15 +797,15 @@ public class AppWindow {
 		customerModel.addRow(new Object[]{++numCustomersAdded, "Anjella Parkhomenko", "anjella.parkhomenko@tcs.com", "9/95 Chiswick Rd", "046921012", "Female"});
 		customerModel.addRow(new Object[]{++numCustomersAdded, "Najimi Osana", "najimi@gmail.com", "7/43 Redwood Dr", "085951072", "Other"});*/
 	}
-	
-	
+
+
 	/**
 	 * Populate table of accounts.
 	 */
 	private void populateAccountsTable() {
 		final DefaultTableModel accountsModel = (DefaultTableModel) accountsTable.getModel();
 		accountsModel.setRowCount(0);	// clear all rows
-		
+
 		AccountService as = new AccountService();
 		for (final Account account : as.getAllAccountsByCustomerID(idOfCustomerOfInterest)) {
 			String accountTypeLabel = "";
@@ -822,15 +822,15 @@ public class AppWindow {
 		//accountsModel.addRow(new Object[]{++numAccountsAdded, "34.00", "Cash Credit"});
 		//accountsModel.addRow(new Object[]{++numAccountsAdded, "99.95", "Regular Current"});
 	}
-	
-	
+
+
 	/**
 	 * Populate table of transactions.
 	 */
 	private void populateTransactionsTable() {
 		final DefaultTableModel transactionsModel = (DefaultTableModel) transactionsTable.getModel();
 		transactionsModel.setRowCount(0);	// clear all rows
-		
+
 		// List all transactions for this account
 		final SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
 		TransactionService ts = new TransactionService();
@@ -839,36 +839,36 @@ public class AppWindow {
 			transactionsModel.addRow(new Object[]{transaction.getDate(), transaction.getAmount()});
 		}
 	}
-	
-	
+
+
 	/**
 	 * Switch to another screen.
 	 */
 	private void switchTo(JPanel screen) {
-		// Clear any text fields we may have filled last time we were here 
+		// Clear any text fields we may have filled last time we were here
 		for (Component c : screen.getComponents()) {
 			if (c instanceof JTextField) {
 				JTextField field = (JTextField) c;
 				field.setText("");	// clear field
 			}
 		}
-		
+
 		// Go to screen
 		frmAbcBankSystem.getContentPane().removeAll();
 		frmAbcBankSystem.getContentPane().add(screen);
 		frmAbcBankSystem.getContentPane().repaint();
 		frmAbcBankSystem.getContentPane().revalidate();
 	}
-	
-	
+
+
 	/**
 	 * Concise wrapper around method to show user popup message
 	 */
 	private void alert(String msg) {
 		JOptionPane.showInternalMessageDialog(frmAbcBankSystem.getContentPane(), msg);
 	}
-	
-	
+
+
 	/**
 	 * Return the value in the column for the selected row in the table
 	 */
@@ -877,7 +877,7 @@ public class AppWindow {
 		final int colNum = table.getColumn(columnName).getModelIndex();
 		return table.getValueAt(rowNum, colNum);
 	}
-	
+
 	/**
 	 * Set the value in the column for the selected row in the table
 	 */
