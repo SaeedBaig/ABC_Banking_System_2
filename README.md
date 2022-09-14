@@ -1,15 +1,6 @@
 # ABC_Banking_System_2
 
-**TLDR: This is a (kind of) fork of an old [group project](https://github.com/SaeedBaig/ABC_Banking_System). Created to refine app and practice git, Java, CI/CD; WIP, some README instructions/links might be outdated. TODO:**
-- [ ] Document shell command to build app
-- [ ] Clean up repo by adding unecessary build artifacts to gitignore
-- [X] Document shell command to run app
-- [ ] Make customer search case-insensitive
-- [ ] Make Customer Hub action buttons colored (Green for Add, Red for Delete, Yellow/Orange for Edit)
-- [ ] Use icons in Customer Hub action buttons (+ for Add, trashcan for Delete, pencil for Edit)
-- [ ] Refine column width in Customer Hub (ID does not have to be that wide; email & phone should probably be wider)
-- [ ] Separate business logic from UI (too much business logic in AppWindow.java; move to appropriate other classes)
-- [ ] Make CI/CD pipeline to build on commit (confirm app compiles for every push/code-change)
+**TLDR:** This is a (kind of) fork of an old [group project](https://github.com/SaeedBaig/ABC_Banking_System) created to refine the app. Some README instructions/links might be outdated.
 
 ---
 
@@ -51,12 +42,19 @@ Just download & extract the [latest release](https://github.com/SaeedBaig/ABC_Ba
 See the [README in `BankProject`](/BankProject/README.md) if you want to build & develop the app yourself.
 
 ## Credits
-UI - Saeed Baig
+- UI - Saeed Baig
+- DB connection (util, dao) - Danyyil Kucherenko
+- TODO - Kevin (Chia-Yu) Lin
+- TODO - Allan Rubin
+- Entity classes (Customer,Account,Transaction) - Venkata Naga Goutham Alapati
 
-DB connection (util, dao) - Danyyil Kucherenko
-
-TODO - Kevin (Chia-Yu) Lin
-
-TODO - Allan Rubin
-
-Entity classes (Customer,Account,Transaction) - Venkata Naga Goutham Alapati
+## TODO
+- [ ] Document shell command to build app
+- [ ] Clean up repo by adding unecessary build artifacts to gitignore
+- [X] Document shell command to run app
+- [ ] Make customer search case-insensitive
+- [ ] Make Customer Hub action buttons colored (Green for Add, Red for Delete, Yellow/Orange for Edit)
+- [ ] Use icons in Customer Hub action buttons (+ for Add, trashcan for Delete, pencil for Edit)
+- [ ] Refine column width in Customer Hub (ID does not have to be that wide; email & phone should probably be wider)
+- [ ] Separate business logic from UI (too much business logic in AppWindow.java; move to appropriate other classes)
+- [ ] Make CI/CD pipeline to build on commit (confirm app compiles for every push/code-change)
